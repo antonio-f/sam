@@ -26,6 +26,9 @@ class Cifar:
         train_set = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=train_transform)
         test_set = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=test_transform)
 
+        train_set = torch.utils.data.Subset(train_set, range(0, len(train_set), 10))
+        test_set = torch.utils.data.Subset(test_set, range(0, len(test_set), 10))
+        
         self.train = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=threads)
         self.test = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=False, num_workers=threads)
 
